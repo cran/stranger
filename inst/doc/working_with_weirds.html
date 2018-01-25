@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="WeLoveDataScience" />
+
+<meta name="date" content="2018-01-25" />
+
+<title>working with weirds</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">working with weirds</h1>
+<h4 class="author"><em>WeLoveDataScience</em></h4>
+<h4 class="date"><em>2018-01-25</em></h4>
+
+
+
+<div id="anomalies-manual-selection" class="section level1">
+<h1>Anomalies manual selection</h1>
+<p>For some metrics, litterature recommends some cutpoints (2 for <code>lof</code> for instance).</p>
+<p>There is a way to derive anomalies from this given cutpoint by filtering a stranger or a singularize object and convert to anomalies the set of retained records.</p>
+<p>Filtering can be done either with usual <code>[</code> or <code>dplyr</code> <code>select</code>.</p>
+<p>Assumed <code>dbscan</code> package is installed, one can for instance use <code>lof</code> weird, use 2 as cutpoint and derive an anomaly object with <a href="./../references/as.anomalies.html"><code>as.anomalies</code></a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crazyfy</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">strange</span>(<span class="dt">weird=</span><span class="st">&quot;lof&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">singularize</span>() -&gt;<span class="st"> </span>s
+anom &lt;-<span class="st"> </span><span class="kw">filter</span>(s,lof_k_<span class="dv">10</span><span class="op">&gt;</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.anomalies</span>()</code></pre></div>
+<p><strong>NOTE</strong> our current implementation of <code>select</code> is not pipeable; we are still trying to ingest Hadley Wickham litterature on programming with <code>dyplyr</code>…</p>
+<p>Anomaly objects are simple vectors with attributes; once can then access the first anomaly and display it with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(s,<span class="dt">type=</span><span class="st">&quot;neighbours&quot;</span>, <span class="dt">score=</span><span class="st">&quot;lof_k_10&quot;</span>,<span class="dt">anomaly_id=</span>anom[<span class="dv">1</span>])</code></pre></div>
+<pre><code>## Your data has been converted to a dataframe to be compatible with ggplot function.</code></pre>
+<p><img src="data:image/png;base64,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" width="100%" /></p>
+</div>
+<div id="using-a-tunegrid" class="section level1">
+<h1>Using a tuneGrid</h1>
+<p><code>stranger</code> package is a wrapper around several methods. Problem thus arrives on the <em>choice</em> of the method… We will see later in this vignette how to work with several metrics and in particular the stacking.</p>
+<p>But world is really complex and even for one chosen method, leyt say <code>knn</code> <em>weird</em>, user has to pick some parameters…</p>
+<p>Here comes the parameter <code>tuneGrid</code> (name borrowed from <code>caret</code>) that allow to use one <em>weird</em> with different sets of parameters in the same call.</p>
+<p>Let’s prepare a matrix of parameters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tg &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">k=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">20</span>),<span class="dt">simplify=</span><span class="kw">c</span>(<span class="st">&quot;mean&quot;</span>,<span class="st">&quot;median&quot;</span>),<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+tg</code></pre></div>
+<pre><code>##    k simplify
+## 1  5     mean
+## 2 10     mean
+## 3 20     mean
+## 4  5   median
+## 5 10   median
+## 6 20   median</code></pre>
+<p>We thus have 6 possible combinations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(anoms.all &lt;-<span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crazyfy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">strange</span>(<span class="dt">weird=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">tuneGrid=</span>tg))</code></pre></div>
+<pre><code>##      .id knn_k_5_mean knn_k_10_mean knn_k_20_mean knn_k_5_median
+##   1:   1   0.02560115    0.03647553    0.05368046     0.02601460
+##   2:   2   0.03628835    0.04448610    0.06322990     0.03894765
+##   3:   3   0.03605785    0.04354593    0.05611057     0.03894765
+##   4:   4   0.03256554    0.04072704    0.05649871     0.02977918
+##   5:   5   0.03984542    0.04519420    0.05902922     0.04195510
+##  ---                                                            
+## 146: 146   0.07056222    0.08621572    0.11121305     0.07400789
+## 147: 147   0.07533194    0.10077827    0.12428750     0.07925859
+## 148: 148   0.07167463    0.08622770    0.10228438     0.07429926
+## 149: 149   0.08643839    0.10152256    0.12754738     0.10533133
+## 150: 150   0.06003996    0.07692173    0.10060785     0.06290052
+##      knn_k_10_median knn_k_20_median
+##   1:      0.03488959      0.05278479
+##   2:      0.04426191      0.05939418
+##   3:      0.04408645      0.05960504
+##   4:      0.04182115      0.05447469
+##   5:      0.04771224      0.05636842
+##  ---                                
+## 146:      0.09178279      0.11484551
+## 147:      0.10273185      0.13174353
+## 148:      0.08791375      0.10983492
+## 149:      0.11319301      0.12104827
+## 150:      0.08442104      0.10450279</code></pre>
+<p><strong>NOTES</strong></p>
+<ul>
+<li><code>stranger</code> naming conventions do not necessary involve all parameters, we though ensure unique names and store parameters values as attributes (metadata) for every metric.</li>
+<li>Currently, only parameters exposed in <em>weird</em> method are allowed in tuning grid. User can still invoke methods several times with different values for other parameters and merge results as seen in next section or use <code>stranger</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tg =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">k=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span><span class="op">:</span><span class="dv">8</span>))
+(anoms &lt;-<span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crazyfy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">strange</span>(<span class="dt">weird=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">tuneGrid=</span>tg,<span class="dt">algorithm=</span><span class="kw">c</span>(<span class="st">&quot;cover_tree&quot;</span>)))</code></pre></div>
+<pre><code>##      .id knn_k_5_mean knn_k_5_mean.1 knn_k_6_mean knn_k_7_mean
+##   1:   1   0.02560115     0.02560115   0.02800096   0.03034193
+##   2:   2   0.03628835     0.03628835   0.03800174   0.03946357
+##   3:   3   0.03605785     0.03605785   0.03749732   0.03879323
+##   4:   4   0.03256555     0.03256555   0.03458706   0.03603100
+##   5:   5   0.03984543     0.03984543   0.04115709   0.04216815
+##  ---                                                          
+## 146: 146   0.07056224     0.07056224   0.07412305   0.07668065
+## 147: 147   0.07533194     0.07533194   0.08271409   0.08860528
+## 148: 148   0.07167465     0.07167465   0.07490411   0.07773136
+## 149: 149   0.08643838     0.08643838   0.09089748   0.09425377
+## 150: 150   0.06003996     0.06003996   0.06483095   0.06838887
+##      knn_k_8_mean
+##   1:   0.03244721
+##   2:   0.04128187
+##   3:   0.04027742
+##   4:   0.03734822
+##   5:   0.04306710
+##  ---             
+## 146:   0.07947144
+## 147:   0.09333819
+## 148:   0.08103779
+## 149:   0.09678463
+## 150:   0.07124970</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(meta  &lt;-<span class="st"> </span><span class="kw">get_info</span>(anoms))</code></pre></div>
+<pre><code>##                weird_method          name  package package.source
+## knn_k_5_mean   &quot;k-Nearest Neighbour&quot; &quot;knn&quot; &quot;FNN&quot;   &quot;CRAN&quot;        
+## knn_k_5_mean.1 &quot;k-Nearest Neighbour&quot; &quot;knn&quot; &quot;FNN&quot;   &quot;CRAN&quot;        
+## knn_k_6_mean   &quot;k-Nearest Neighbour&quot; &quot;knn&quot; &quot;FNN&quot;   &quot;CRAN&quot;        
+## knn_k_7_mean   &quot;k-Nearest Neighbour&quot; &quot;knn&quot; &quot;FNN&quot;   &quot;CRAN&quot;        
+## knn_k_8_mean   &quot;k-Nearest Neighbour&quot; &quot;knn&quot; &quot;FNN&quot;   &quot;CRAN&quot;        
+##                foo        type       sort
+## knn_k_5_mean   &quot;knn.dist&quot; &quot;distance&quot; -1  
+## knn_k_5_mean.1 &quot;knn.dist&quot; &quot;distance&quot; -1  
+## knn_k_6_mean   &quot;knn.dist&quot; &quot;distance&quot; -1  
+## knn_k_7_mean   &quot;knn.dist&quot; &quot;distance&quot; -1  
+## knn_k_8_mean   &quot;knn.dist&quot; &quot;distance&quot; -1  
+##                detail                              parameters
+## knn_k_5_mean   &quot;Positive numeric value (distance)&quot; List,3    
+## knn_k_5_mean.1 &quot;Positive numeric value (distance)&quot; List,3    
+## knn_k_6_mean   &quot;Positive numeric value (distance)&quot; List,3    
+## knn_k_7_mean   &quot;Positive numeric value (distance)&quot; List,3    
+## knn_k_8_mean   &quot;Positive numeric value (distance)&quot; List,3    
+##                normalizationFunction colname       
+## knn_k_5_mean   ?                     &quot;knn_k_5_mean&quot;
+## knn_k_5_mean.1 ?                     &quot;knn_k_5_mean&quot;
+## knn_k_6_mean   ?                     &quot;knn_k_6_mean&quot;
+## knn_k_7_mean   ?                     &quot;knn_k_7_mean&quot;
+## knn_k_8_mean   ?                     &quot;knn_k_8_mean&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meta[,<span class="st">&quot;parameters&quot;</span>]</code></pre></div>
+<pre><code>## $knn_k_5_mean
+## $knn_k_5_mean$k
+## [1] 5
+## 
+## $knn_k_5_mean$algorithm
+## [1] &quot;cover_tree&quot;
+## 
+## $knn_k_5_mean$simplify
+## [1] &quot;mean&quot;
+## 
+## 
+## $knn_k_5_mean.1
+## $knn_k_5_mean.1$k
+## [1] 5
+## 
+## $knn_k_5_mean.1$algorithm
+## [1] &quot;cover_tree&quot;
+## 
+## $knn_k_5_mean.1$simplify
+## [1] &quot;mean&quot;
+## 
+## 
+## $knn_k_6_mean
+## $knn_k_6_mean$k
+## [1] 6
+## 
+## $knn_k_6_mean$algorithm
+## [1] &quot;cover_tree&quot;
+## 
+## $knn_k_6_mean$simplify
+## [1] &quot;mean&quot;
+## 
+## 
+## $knn_k_7_mean
+## $knn_k_7_mean$k
+## [1] 7
+## 
+## $knn_k_7_mean$algorithm
+## [1] &quot;cover_tree&quot;
+## 
+## $knn_k_7_mean$simplify
+## [1] &quot;mean&quot;
+## 
+## 
+## $knn_k_8_mean
+## $knn_k_8_mean$k
+## [1] 8
+## 
+## $knn_k_8_mean$algorithm
+## [1] &quot;cover_tree&quot;
+## 
+## $knn_k_8_mean$simplify
+## [1] &quot;mean&quot;</code></pre>
+</div>
+<div id="merging-stranger-objects" class="section level1">
+<h1>Merging stranger objects</h1>
+<p>So you have decided to go for and try two different methods. Let say <em>knn</em> and <em>autoencode</em>.</p>
+<p>First, we can create two object containg assciatdd metrics.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crazyfy</span>()
+m1 &lt;-<span class="st"> </span><span class="kw">strange</span>(data, <span class="dt">weird=</span><span class="st">&quot;knn&quot;</span>)
+m2 &lt;-<span class="st"> </span><span class="kw">strange</span>(data, <span class="dt">weird=</span><span class="st">&quot;autoencode&quot;</span>)</code></pre></div>
+<pre><code>## autoencoding...
+## Optimizer counts:
+## function gradient 
+##      142       57 
+## Optimizer: successful convergence.
+## Optimizer: convergence = 0, message = 
+## J.init = 41.82262, J.final = 0.3405476, mean(rho.hat.final) = 0.001492674</code></pre>
+<p>For convenience and further exploitation, a <code>merge</code> method is at your disposal to gather the two corresponding metrics in a single object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(metrics &lt;-<span class="st"> </span><span class="kw">merge</span>(m1,m2))</code></pre></div>
+<pre><code>##      .id knn_k_10_mean autoencode_nl_3_Nhidden_10
+##   1:   1    0.03647553                 0.06474984
+##   2:   2    0.04448610                 0.06352932
+##   3:   3    0.04354593                 0.06780243
+##   4:   4    0.04072704                 0.06386722
+##   5:   5    0.04519420                 0.06666435
+##  ---                                             
+## 146: 146    0.08621572                 0.04889247
+## 147: 147    0.10077827                 0.03647731
+## 148: 148    0.08622770                 0.03902020
+## 149: 149    0.10152256                 0.04735600
+## 150: 150    0.07692173                 0.02786792</code></pre>
+</div>
+<div id="invoke-several-weirds-at-once-stranger" class="section level1">
+<h1>Invoke several weirds at once (stranger)</h1>
+<p>You are not sure yet about the metric you want to use. Or you would like to test many, with plenty of different values for the parameters? <code>stranger</code> is for you. This function is similar to <code>caretList</code> in <code>caretEnsemble</code> package.</p>
+<p>With its first parameter <em>methodList</em> you can supply many methods that will be invoked with their default parameter.</p>
+<p>If you want to use your own values or use a tuneGrid for a given method, you will have to create <em>weird</em> objects using <code>weird</code> function and pass a list of such <em>weirds</em> object to the parameter <em>tuneList</em>.</p>
+<p>Following call will for instance: * fit a knn <em>weird</em> with default values (taken from <em>methodList</em>) * fit a autoencode <em>weird</em> with default values * also fit a knn but with <em>k</em> set to 20 (not recommended for iris data having 50 observations)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s3=<span class="kw">stranger</span>(data,
+    <span class="dt">methodList=</span><span class="kw">c</span>(<span class="st">&quot;knn&quot;</span>,<span class="st">&quot;autoencode&quot;</span>),
+    <span class="dt">tuneList=</span><span class="kw">list</span>(<span class="kw">weird</span>(<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">k=</span><span class="dv">20</span>)))</code></pre></div>
+<pre><code>## autoencoding...
+## Optimizer counts:
+## function gradient 
+##      147       41 
+## Optimizer: successful convergence.
+## Optimizer: convergence = 0, message = 
+## J.init = 41.81928, J.final = 0.3673496, mean(rho.hat.final) = 0.001275944</code></pre>
+</div>
+<div id="does-not-work-autoencode-tunegrid" class="section level1">
+<h1>does not work (autoencode tuneGrid)</h1>
+<p>ss=stranger(data, methodList=c(“lof”), tuneList=list( weird(method=“knn”, tuneGrid=data.frame(k=c(3,5,10,15))) , weird(method=“autoencode”,colname=“auto_2hidden”,nl=4,N.hidden=c(6,15)) , weird(method=“autoencode”, colname=“auto”, tuneGrid=data.frame(nl=3,N.hidden=c(6,15,30)))))</p>
+<p>anom &lt;- ss %&gt;% singularize() %&gt;% get_anomalies(nmin=6,nmax=6)</p>
+<p>anom %&gt;% fortify(data=iris,colname=“anomaly”) %&gt;% ggplot(aes(x=Sepal.Length,y=Sepal.Width,color=Species,size=anomaly))+geom_point()+scale_size_discrete(range=c(1,3))</p>
+</div>
+<div id="normalize-stack-metrics" class="section level1">
+<h1>Normalize &amp; stack metrics</h1>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
