@@ -12,7 +12,7 @@
 
 <meta name="author" content="WeLoveDataScience" />
 
-<meta name="date" content="2018-01-25" />
+<meta name="date" content="2018-03-12" />
 
 <title>working with weirds</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">working with weirds</h1>
 <h4 class="author"><em>WeLoveDataScience</em></h4>
-<h4 class="date"><em>2018-01-25</em></h4>
+<h4 class="date"><em>2018-03-12</em></h4>
 
 
 
@@ -255,24 +255,24 @@ m2 &lt;-<span class="st"> </span><span class="kw">strange</span>(data, <span cla
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      142       57 
+##      164       39 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.82262, J.final = 0.3405476, mean(rho.hat.final) = 0.001492674</code></pre>
+## J.init = 41.81906, J.final = 0.3683953, mean(rho.hat.final) = 0.001350571</code></pre>
 <p>For convenience and further exploitation, a <code>merge</code> method is at your disposal to gather the two corresponding metrics in a single object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(metrics &lt;-<span class="st"> </span><span class="kw">merge</span>(m1,m2))</code></pre></div>
 <pre><code>##      .id knn_k_10_mean autoencode_nl_3_Nhidden_10
-##   1:   1    0.03647553                 0.06474984
-##   2:   2    0.04448610                 0.06352932
-##   3:   3    0.04354593                 0.06780243
-##   4:   4    0.04072704                 0.06386722
-##   5:   5    0.04519420                 0.06666435
+##   1:   1    0.03647553                 0.07006304
+##   2:   2    0.04448610                 0.06884055
+##   3:   3    0.04354593                 0.07321565
+##   4:   4    0.04072704                 0.06910443
+##   5:   5    0.04519420                 0.07198399
 ##  ---                                             
-## 146: 146    0.08621572                 0.04889247
-## 147: 147    0.10077827                 0.03647731
-## 148: 148    0.08622770                 0.03902020
-## 149: 149    0.10152256                 0.04735600
-## 150: 150    0.07692173                 0.02786792</code></pre>
+## 146: 146    0.08621572                 0.05702248
+## 147: 147    0.10077827                 0.03279490
+## 148: 148    0.08622770                 0.03776625
+## 149: 149    0.10152256                 0.05777670
+## 150: 150    0.07692173                 0.02462157</code></pre>
 </div>
 <div id="invoke-several-weirds-at-once-stranger" class="section level1">
 <h1>Invoke several weirds at once (stranger)</h1>
@@ -286,10 +286,10 @@ m2 &lt;-<span class="st"> </span><span class="kw">strange</span>(data, <span cla
 <pre><code>## autoencoding...
 ## Optimizer counts:
 ## function gradient 
-##      147       41 
+##      217       87 
 ## Optimizer: successful convergence.
 ## Optimizer: convergence = 0, message = 
-## J.init = 41.81928, J.final = 0.3673496, mean(rho.hat.final) = 0.001275944</code></pre>
+## J.init = 41.81847, J.final = 0.3063054, mean(rho.hat.final) = 0.001776088</code></pre>
 </div>
 <div id="does-not-work-autoencode-tunegrid" class="section level1">
 <h1>does not work (autoencode tuneGrid)</h1>

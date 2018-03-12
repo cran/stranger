@@ -1,7 +1,7 @@
 Package: stranger
 Type: Package
 Title: Simple Toolkit in R for ANomalies Get, Explain and Report
-Version: 0.3.2
+Version: 0.3.3
 Authors@R: c(
     person("Eric", "Lecoutre", email = "eric.lecoutre@welovedatascience.com", role = c("aut","cre")),
     person("Sven", "Wauters", email = "sven.wauters@welovedatascience.com", role = "aut"))
@@ -20,8 +20,8 @@ VignetteBuilder: knitr
 Imports: assertthat (>= 0.2) , ggplot2, tidyr, grid, methods
 Depends: R (>= 2.10), data.table, dplyr (>= 0.7.3)
 NeedsCompilation: no
-Packaged: 2018-01-25 08:01:47 UTC; ericl
+Packaged: 2018-03-12 13:45:26 UTC; ericl
 Author: Eric Lecoutre [aut, cre],
   Sven Wauters [aut]
 Repository: CRAN
-Date/Publication: 2018-01-25 14:31:13 UTC
+Date/Publication: 2018-03-12 19:51:22 UTC

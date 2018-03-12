@@ -9,10 +9,10 @@ crazyfy <- function
 #'
 #' @details
 #' See here this list of possible pre-treatment operations.
-#' Factors/characters are transformed into numeric by using term frequency–inverse
-#' document frequency approach (td-idf). Note that we use the smooth weighting IDF weight,
-#' ie. we take the log of 1+N/nt where N is the number of observations and nt the frequency
-#' for the specific term t.
+#' * factor: Factors/characters are transformed into numeric by using term frequency–inverse document frequency approach (td-idf). Note that we use the smooth weighting IDF weight, ie. we take the log of 1+N/nt where N is the number of observations and nt the frequency for the specific term t.
+#' * log: compute log(x-min(x)). Done for all numeric variables having a distribution with skewness greater than \code{skewness.cutpoint}
+#' * impute: impute missing values. Possible method, chosen with \code{NA.method} are using variable average or a specific value then provided by \code{NA.value}.
+#' * range: standardize variable: (x-min(x))/max(x).
 #'
 #' @param data Source data (data.frame or data.table).
 #' @param do character vector - List of processing steps to apply -- see details.
@@ -50,6 +50,7 @@ crazyfy <- function
   do = match.arg(do,c("factor","log","impute","range","scale"),several.ok = TRUE)
   assertthat::assert_that(is.numeric(skewness.cutpoint),msg="Parameter skewness.cutpoint must be a numeric value.")
 
+  if (is.vector(data)) data <- as.data.frame(data)
 
   ## Preparation of output
   out <- as.data.table(data)
@@ -115,6 +116,7 @@ crazyfy <- function
 
 
   do_factor <- function(){
+    if (verbose) print("crazyfy: FACTOR")
     do.cols <- cols[colclasses %in% c("factor","character")]
     do.cols <- do.cols[!do.cols %in% id] # remove ID (in case character)
     meta.preprocess$factor <<- list(done=length(do.cols)>0, vars=do.cols)
@@ -125,11 +127,12 @@ crazyfy <- function
         ifac.x[ifac.x==""] <- NA
         ifac.freqNA <- sum(is.na(ifac.x))
         ifac.freq <- table(ifac.x)[ifac.x]
-        ifac.out <- log(N / ifac.freq)
+        ifac.out <- log(ifac.N / ifac.freq)
         ifac.out[is.na(ifac.out)] <- log( 1+ ifac.N / ifac.freqNA)
         out[[ifac]] <- ifac.out
       }
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -151,6 +154,7 @@ crazyfy <- function
         }
       }
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -175,7 +179,7 @@ crazyfy <- function
         else if (NA.method=="value") out[[ivar]][ivar.NA] <- NA.value
       }
     }
-
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -189,6 +193,7 @@ crazyfy <- function
     for (ivar in do.cols){
       out[[ivar]] <- (out[[ivar]] - min(out[[ivar]],na.rm=TRUE))/max(out[[ivar]],na.rm=TRUE)
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
@@ -201,6 +206,7 @@ crazyfy <- function
     for (ivar in do.cols){
       out[[ivar]] <- scale(out[[ivar]])[,1]
     }
+    if (verbose) cat("\nDone.")
     return(out)
   }
 
